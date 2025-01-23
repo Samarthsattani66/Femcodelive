@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome Everyone</title>
+        <style>
+            :root {
+                --bg-color: #121212; /* Default to dark mode */
+                --text-color: #ffffff;
+                --button-bg: #1E88E5;
+                --button-hover-bg: #1565C0;
+                --logo-frame-color: #444444;
+                --dot-color: #ffff00; 
+            }
+
+            [data-theme="light"] {
+                --bg-color: #ffffff;
+                --text-color: #000000;
+                --button-bg: #4CAF50;
+                --button-hover-bg: #45a049;
+                --logo-frame-color: #cccccc;
+                --dot-color: #ff0000; 
+            }
+
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+            }
+
+            @keyframes logo-frame-animation {
+                from { transform: scale(1); }
+                to { transform: scale(1.05); }
+            }
+
+            #link-container div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 20px;
+                text-align: center;
+                position: relative;
+            }
+
+            #link-container img {
+                width: 350px;
+                max-width: 100%;
+                border: 5px solid var(--logo-frame-color);
+                animation: logo-frame-animation 2s infinite alternate;
+                cursor: pointer; /* Make logo clickable */
+            }
+
+            #link-container div::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: var(--dot-color);
+                animation: dot-animation 3s infinite linear;
+            }
+
+            @keyframes dot-animation {
+                0% { transform: translateX(0); }
+                25% { transform: translateY(100%); }
+                50% { transform: translateX(100%); }
+                75% { transform: translateY(0); }
+                100% { transform: translateX(0); } 
+            }
+
+            .watch-button {
+                display: inline-block;
+                padding: 10px 20px;
+                margin-top: 10px;
+                background-color: var(--button-bg);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .watch-button:hover {
+                background-color: var(--button-hover-bg);
+            }
+
+            .theme-toggle {
+                margin-bottom: 20px;
+                padding: 10px 20px;
+                background-color: var(--button-bg);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+            .theme-toggle:hover {
+                background-color: var(--button-hover-bg);
+            }
+        </style>
+    </head>
+    <body>
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark/Light Mode</button>
+        <div id="link-container"></div>
+
+        <script>
+            const m3uUrl = "https://raw.githubusercontent.com/drmlive/fancode-live-events/main/fancode.m3u";
+            const linkPrefix = "https://shz.al/~Team_Rohit.html?videoUrl=";
+            async function fetchAndDisplayLinks() {
+                try {
+                    const response = await fetch(m3uUrl);
+                    const text = await response.text();
+                    const lines = text.split('\n');
+                    const container = document.getElementById("link-container");
+
+                    let description = "";
+                    let logoUrl = "";
+                    lines.forEach(line => {
+                        line = line.trim();
+
+                        if (line.startsWith("#EXTINF")) {
+                            const logoMatch = line.match(/tvg-logo="(.*?)"/);
+                            logoUrl = logoMatch ? logoMatch[1] : "";
+                            const descriptionMatch = line.match(/#EXTINF.*?,(.*)/);
+                            description = descriptionMatch ? descriptionMatch[1].trim() : "";
+                            description = description.replace(/tvg-logo=".*?"/, "").trim();
+                        } else if (line.startsWith("http")) {
+                            const linkContainer = document.createElement("div");
+
+                            if (logoUrl) {
+                                const logoImg = document.createElement("img");
+                                logoImg.src = logoUrl;
+                                logoImg.alt = "Logo";
+                                logoImg.onclick = () => { 
+                                    window.open(linkPrefix + encodeURIComponent(line), '_blank'); 
+                                };
+                                linkContainer.appendChild(logoImg);
+                            }
+
+                            if (description) {
+                                const descriptionElem = document.createElement("p");
+                                descriptionElem.textContent = description;
+                                linkContainer.appendChild(descriptionElem);
+                            }
+
+                            const button = document.createElement("a");
+                            button.href = linkPrefix + encodeURIComponent(line);
+                            button.target = "_blank";
+                            button.textContent = "Click to Watch";
+                            button.className = "watch-button";
+                            linkContainer.appendChild(button);
+
+                            container.appendChild(linkContainer);
+
+                            description = "";
+                            logoUrl = "";
+                        }
+                    });
+                } catch (error) {
+                    console.error("Error fetching M3U file:", error);
+                }
+            }
+
+            fetchAndDisplayLinks();
+
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute("data-theme");
+                const newTheme = currentTheme === "dark" ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", newTheme);
+            }
+        </script>
+
+        <p>Important Information</p>
+        <p>We do not own any material or streams here, all content and streams are provided by third-party sites & belong to their respective owners.</p>
+
+        <p>API Credit: drm</p>
+    </body>
+</html>
