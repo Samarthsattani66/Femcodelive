@@ -151,9 +151,7 @@
     .event:hover {
       box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
       transform: scale(1.04);
-    }
-
-    .event img {
+    }.event img {
       width: 100%;
       height: 220px;
       object-fit: cover;
@@ -301,28 +299,26 @@
 
     events.forEach(event => {
       const eventDiv = document.createElement("div");
-      eventDiv.classList.add("event");
-
-      const videoLink = event.adfree_url || event.dai_url;
+      eventDiv.classList.add("event");const videoLink = event.adfree_url || event.dai_url;
       const hasStream = Boolean(videoLink);
       const isLive = event.status && event.status.toLowerCase() === 'live';
       const adfreeLink = event.adfree_url;
 
-      eventDiv.innerHTML = `
-        ${hasStream && isLive ? `<div class="live-badge">LIVE</div>` : ''}
+      eventDiv.innerHTML = 
+        ${hasStream && isLive ? <div class="live-badge">LIVE</div> : ''}
         <img src="${event.src}" alt="${event.title}">
         <div class="event-content">
           <div class="teams">${event.team_1} vs ${event.team_2}</div>
           <div class="league">${event.event_name}</div>
           <div class="time">${event.startTime}</div>
           ${hasStream
-            ? `<a href="https://Teamro45.fwh.is/Teamrom3u8newplyr.html?id=${videoLink}" target="_blank" class="btn-primary">Watch Now</a>`
-            : `<span class="btn-primary" style="background:gray;cursor:default;opacity:0.6;">Coming Soon</span>`}
+            ? <a href="https://Teamro45.fwh.is/Teamrom3u8newplyr.html?id=${videoLink}" target="_blank" class="btn-primary">Watch Now</a>
+            : <span class="btn-primary" style="background:gray;cursor:default;opacity:0.6;">Coming Soon</span>}
           ${adfreeLink
-            ? `<a href="https://Teamro45.fwh.is/Teamrom3u8newplyr.html?id=${adfreeLink}" target="_blank" class="btn-primary">Ad-Free</a>`
+            ? <a href="https://Teamro45.fwh.is/Teamrom3u8newplyr.html?id=${adfreeLink}" target="_blank" class="btn-primary">Ad-Free</a>
             : ''}
         </div>
-      `;
+      ;
       container.appendChild(eventDiv);
     });
   }
@@ -341,7 +337,7 @@
   document.getElementById("searchInput").addEventListener("input", e => {
     const searchTerm = e.target.value.toLowerCase();
     const filtered = window.allEvents.filter(event =>
-      `${event.team_1} ${event.team_2} ${event.event_name}`.toLowerCase().includes(searchTerm)
+      ${event.team_1} ${event.team_2} ${event.event_name}.toLowerCase().includes(searchTerm)
     );
     displayEvents(filtered);
   });
