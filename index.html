@@ -1,308 +1,320 @@
 <!doctype html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FEMCODE WEB - LIVE SPORTS</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    body {
-        background: #05070f;
-        color: white;
-        font-family: 'Poppins', system-ui, sans-serif;
-        padding-bottom: 50px;
-    }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FEMCODE WEB - LIVE SPORTS</title>
 
-    /* HEADER */
-    .search-box {
-        background: #0b0f1a;
-        border: 1px solid #1f2a44;
-        padding: 8px 12px;
-        border-radius: 20px;
-        color: white;
-        outline: none;
-    }
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    .search-box:focus {
-        border-color: #00ffff;
-        box-shadow: 0 0 8px #00ffff;
-    }
+<style>
+body {
+    background: #05070f;
+    color: white;
+    font-family: 'Poppins', system-ui, sans-serif;
+    padding-bottom: 50px;
+}
 
-    /* CARD */
-    .match-tile {
-        background: #0b0f1a;
-        border-radius: 28px;
-        border: 1px solid #1f2a44;
-        overflow: hidden;
-        transition: .3s;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 0 10px rgba(0,255,255,0.05);
-        height: 100%;
-    }
+/* ✅ GLOBAL TEXT STYLE */
+* {
+    text-transform: uppercase;
+    font-weight: bold;
+}
 
-    .match-tile:hover {
-        transform: translateY(-6px);
-        border-color: #00ffff;
-        box-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff55;
-    }
+/* HEADER */
+.search-box {
+    background: #0b0f1a;
+    border: 1px solid #1f2a44;
+    padding: 8px 12px;
+    border-radius: 20px;
+    color: white;
+    outline: none;
+}
 
-    .img-wrapper {
-        height: 200px;
-        overflow: hidden;
-        position: relative;
-    }
+.search-box:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 8px #00ffff;
+}
 
-    .match-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+/* CARD */
+.match-tile {
+    background: #0b0f1a;
+    border-radius: 28px;
+    border: 1px solid #1f2a44;
+    overflow: hidden;
+    transition: .3s;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0,255,255,0.05);
+    height: 100%;
+}
 
-    /* LIVE */
-    .live-badge {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: #ff0033;
-        font-size: 11px;
-        font-weight: 800;
-        padding: 4px 12px;
-        border-radius: 30px;
-        animation: pulse 1.5s infinite;
-    }
+.match-tile:hover {
+    transform: translateY(-6px);
+    border-color: #00ffff;
+    box-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff55;
+}
 
-    @keyframes pulse {
-        0% { opacity: 1; }
-        50% { opacity: 0.5; }
-        100% { opacity: 1; }
-    }
+.img-wrapper {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
 
-    /* LANGUAGE */
-    .lang-badge {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        background: #00ffff;
-        color: black;
-        font-size: 11px;
-        font-weight: bold;
-        padding: 3px 8px;
-        border-radius: 20px;
-    }
+.match-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-    /* WATCH BUTTON */
-    .btn-watch {
-        background: #00ffff;
-        color: black;
-        padding: 14px;
-        border-radius: 16px;
-        text-align: center;
-        font-weight: 800;
-        cursor: pointer;
-        margin-top: auto;
-        text-transform: uppercase;
-    }
+/* LIVE */
+.live-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ff0033;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 30px;
+    animation: pulse 1.5s infinite;
+}
 
-    .btn-watch.not-live {
-        background: #111827;
-        color: #666;
-        cursor: not-allowed;
-    }
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
 
-    /* MODAL */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.95);
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-    }
+/* LANGUAGE */
+.lang-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #00ffff;
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
 
-    .modal-content {
-        background: #0b0f1a;
-        width: 90%;
-        max-width: 350px;
-        padding: 30px;
-        border-radius: 25px;
-        border: 1px solid #1f2a44;
-        text-align: center;
-    }
+/* WATCH BUTTON */
+.btn-watch {
+    background: #00ffff;
+    color: black;
+    padding: 14px;
+    border-radius: 16px;
+    text-align: center;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: auto;
+    text-transform: uppercase;
+}
 
-    .quality-btn {
-        background: #111827;
-        border: 1px solid #1f2a44;
-        width: 100%;
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 15px;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+.btn-watch.not-live {
+    background: #111827;
+    color: #666;
+    cursor: not-allowed;
+}
 
-    .quality-btn:hover {
-        background: #00ffff;
-        color: black;
-    }
+/* MODAL */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
 
-    .close-btn {
-        margin-top: 15px;
-        color: #ff4d4d;
-        font-weight: bold;
-        cursor: pointer;
-        text-transform: uppercase;
-        font-size: 14px;
-    }
-  </style>
- </head>
- <body class="p-5 max-w-7xl mx-auto">
-  
-  <div class="flex justify-between items-center mb-10">
+.modal-content {
+    background: #0b0f1a;
+    width: 90%;
+    max-width: 350px;
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid #1f2a44;
+    text-align: center;
+}
+
+.quality-btn {
+    background: #111827;
+    border: 1px solid #1f2a44;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.quality-btn:hover {
+    background: #00ffff;
+    color: black;
+}
+
+.close-btn {
+    margin-top: 15px;
+    color: #ff4d4d;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body class="p-5 max-w-7xl mx-auto">
+
+<div class="flex justify-between items-center mb-10">
     <div class="text-2xl font-black text-white">⚡ FEMCODE <span class="text-cyan-400">WEB</span></div>
-   <div class="relative flex items-center">
-    <i class="fas fa-search text-xl cursor-pointer text-cyan-400 mr-3" onclick="toggleSearch()"></i> 
-    <input type="text" id="search" placeholder="Search matches..." class="search-box hidden w-48 sm:w-64">
-   </div>
-  </div>
 
-  <div id="matches-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      </div>
+    <div class="relative flex items-center">
+        <i class="fas fa-search text-xl cursor-pointer text-cyan-400 mr-3" onclick="toggleSearch()"></i>
+        <input type="text" id="search" placeholder="Search matches..." class="search-box hidden w-48 sm:w-64">
+    </div>
+</div>
 
-  <div id="quality-modal" class="modal-overlay">
-   <div class="modal-content">
-    <h3 class="text-xl font-bold mb-5 text-cyan-400">Select Quality</h3>
-    <div id="quality-list"></div>
-    <div class="close-btn" onclick="closeModal()">Close Window</div>
-   </div>
-  </div>
+<div id="matches-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
-  <script>
-    const DATA_URL = "https://fcapi.amitbala1993.workers.dev/";
-    const PLAYER_URL = "https://teamroshaka2.pages.dev/?url=";
-    const container = document.getElementById("matches-container");
-    
-    let allMatches = [];
+<div id="quality-modal" class="modal-overlay">
+    <div class="modal-content">
+        <h3 class="text-xl font-bold mb-5 text-cyan-400">Select Quality</h3>
+        <div id="quality-list"></div>
+        <div class="close-btn" onclick="closeModal()">Close Window</div>
+    </div>
+</div>
 
-    /* INITIALIZE APP */
-    async function initApp() {
-        try {
-            const res = await fetch(DATA_URL);
-            const data = await res.json();
-            
-            // Merge live and upcoming from the new API structure
-            const live = data.matches || [];
-            const upcoming = data.upcoming_matches || [];
-            allMatches = [...live, ...upcoming];
-            
-            renderMatches(allMatches);
-        } catch (error) {
-            console.error("Fetch Error:", error);
-            container.innerHTML = "<div class='col-span-full text-center text-red-500'>Failed to load stream data. Please refresh.</div>";
-        }
+<script>
+const DATA_URL = "https://fcapi.amitbala1993.workers.dev/";
+const PLAYER_URL = "https://teamroshaka2.pages.dev/?url=";
+const container = document.getElementById("matches-container");
+
+let allMatches = [];
+
+async function initApp() {
+    try {
+        const res = await fetch(DATA_URL);
+        const data = await res.json();
+
+        const live = data.matches || [];
+        const upcoming = data.upcoming_matches || [];
+        allMatches = [...live, ...upcoming];
+
+        renderMatches(allMatches);
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = "<div class='col-span-full text-center text-red-500'>Failed to load stream data. Please refresh.</div>";
+    }
+}
+
+function renderMatches(matches) {
+    container.innerHTML = "";
+
+    if (matches.length === 0) {
+        container.innerHTML = "<div class='col-span-full text-center text-gray-500'>No matches found.</div>";
+        return;
     }
 
-    /* RENDER CARDS */
-    function renderMatches(matches) {
-        container.innerHTML = "";
-        
-        if (matches.length === 0) {
-            container.innerHTML = "<div class='col-span-full text-center text-gray-500'>No matches found.</div>";
-            return;
-        }
+    matches.forEach((m, index) => {
+        const isLive = m.type === "live" || (m.status && m.status.toLowerCase() === "started");
+        const img = m.image || "https://www.fancode.com/skillup-uploads/cms-media/Cricket_Fallback_Old_match-card.jpg";
+        const lang = m.language || "English";
+        const title = m.match || m.tournament || "Unknown Match";
 
-        matches.forEach((m, index) => {
-            // Check status for AmitBala API ('started' or 'live' type)
-            const isLive = m.type === "live" || (m.status && m.status.toLowerCase() === "started");
-            const img = m.image || "https://www.fancode.com/skillup-uploads/cms-media/Cricket_Fallback_Old_match-card.jpg";
-            const lang = m.language || "English";
-            const title = m.match  m.tournament  "Unknown Match";
-            
-            const card = document.createElement("div");
-            card.className = "match-tile";
-            card.innerHTML = 
-                <div class="img-wrapper">
-                    <img src="${img}" class="match-img" alt="Match Thumbnail">
-                    ${isLive ? '<span class="live-badge">LIVE</span>' : ''}
-                    <span class="lang-badge">${lang}</span>
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="font-bold text-lg leading-tight text-white">${title}</h3>
-                    <p class="text-gray-400 text-xs mt-2 italic">${m.tournament}</p>
-                    <p class="text-cyan-500 text-xs font-bold mt-2 mb-5">
-                        ${isLive ? 'Started' : (m.startTime || 'Coming Soon')}
-                    </p>
-                    <div onclick="${isLive ? openQuality(${index}) : ''}"
-                         class="btn-watch ${!isLive ? 'not-live' : ''}">
-                        ${isLive ? 'Watch Now' : 'Not Started'}
-                    </div>
-                </div>
-            ;
-            container.appendChild(card);
-        });
-    }
+        const card = document.createElement("div");
+        card.className = "match-tile";
 
-    /* SEARCH LOGIC */
-    function toggleSearch() {
-        const s = document.getElementById("search");
-        s.classList.toggle("hidden");
-        if (!s.classList.contains("hidden")) s.focus();
-    }
+        card.innerHTML = `
+        <div class="img-wrapper">
+            <img src="${img}" class="match-img">
+            ${isLive ? '<span class="live-badge">LIVE</span>' : ''}
+            <span class="lang-badge">${lang}</span>
+        </div>
 
-    document.getElementById("search").addEventListener("input", function() {const query = this.value.toLowerCase();
-        const filtered = allMatches.filter(m => 
-            (m.match  "").toLowerCase().includes(query)  
-            (m.tournament || "").toLowerCase().includes(query)
-        );
-        renderMatches(filtered);
+        <div class="p-6 flex flex-col flex-grow">
+            <h3 class="font-bold text-lg text-white">${title}</h3>
+            <p class="text-gray-400 text-xs mt-2 italic">${m.tournament || ""}</p>
+            <p class="text-cyan-500 text-xs font-bold mt-2 mb-5">
+                ${isLive ? 'Started' : (m.startTime || 'Coming Soon')}
+            </p>
+
+            <div onclick="${isLive ? `openQuality(${index})` : ''}"
+                 class="btn-watch ${!isLive ? 'not-live' : ''}">
+                ${isLive ? 'Watch Now' : 'Not Started'}
+            </div>
+        </div>
+        `;
+
+        container.appendChild(card);
     });
+}
 
-    /* QUALITY MODAL LOGIC */
-    function openQuality(originalIndex) {
-        // Find the match object from the master list
-        const match = allMatches[originalIndex];
-        const list = document.getElementById("quality-list");
-        list.innerHTML = "";
+function toggleSearch() {
+    const s = document.getElementById("search");
+    s.classList.toggle("hidden");
+    if (!s.classList.contains("hidden")) s.focus();
+}
 
-        // The new API uses an object 'all_resolutions'
-        const resolutions = match.all_resolutions;
+document.getElementById("search").addEventListener("input", function() {
+    const query = this.value.toLowerCase();
 
-        if (resolutions && Object.keys(resolutions).length > 0) {
-            Object.keys(resolutions).forEach(resKey => {
-                const streamUrl = resolutions[resKey];
-                const btn = document.createElement("div");
-                btn.className = "quality-btn";
-                btn.innerHTML = <span>${resKey}</span><i class="fas fa-play-circle"></i>;
-                btn.onclick = () => {
-                    window.location.href = PLAYER_URL + encodeURIComponent(streamUrl);
-                };
-                list.appendChild(btn);
-            });
-            document.getElementById("quality-modal").style.display = "flex";
-        } else {
-            alert("No stream links available for this event yet.");
-        }
+    const filtered = allMatches.filter(m =>
+        (m.match || "").toLowerCase().includes(query) ||
+        (m.tournament || "").toLowerCase().includes(query)
+    );
+
+    renderMatches(filtered);
+});
+
+function openQuality(index) {
+    const match = allMatches[index];
+    const list = document.getElementById("quality-list");
+    list.innerHTML = "";
+
+    const resolutions = match.all_resolutions;
+
+    if (resolutions && Object.keys(resolutions).length > 0) {
+        Object.keys(resolutions).forEach(resKey => {
+            const streamUrl = resolutions[resKey];
+
+            const btn = document.createElement("div");
+            btn.className = "quality-btn";
+            btn.innerHTML = `<span>${resKey}</span><i class="fas fa-play-circle"></i>`;
+
+            btn.onclick = () => {
+                window.location.href = PLAYER_URL + encodeURIComponent(streamUrl);
+            };
+
+            list.appendChild(btn);
+        });
+
+        document.getElementById("quality-modal").style.display = "flex";
+    } else {
+        alert("No stream links available for this event yet.");
     }
+}
 
-    function closeModal() {
-        document.getElementById("quality-modal").style.display = "none";
+function closeModal() {
+    document.getElementById("quality-modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("quality-modal");
+    if (event.target === modal) {
+        closeModal();
     }
+};
 
-    // Close modal on background click
-    window.onclick = function(event) {
-        const modal = document.getElementById("quality-modal");
-        if (event.target == modal) {
-            closeModal();
-        }
-    }
+initApp();
+</script>
 
-    initApp();
-  </script>
- </body>
+</body>
 </html>
